@@ -6,9 +6,9 @@
 
 本章我们将实现一个简单的文件系统 -- easyfs，能够对 **持久存储设备** (Persistent Storage) I/O 资源进行管理；将设计两种文件：常规文件和目录文件，它们均以文件系统所维护的 **磁盘文件** 形式被组织并保存在持久存储设备上。
 
-我们还将扩展 ``exec`` 系统调用，使之能传递运行参数，并进一步改进 shell 程序，使其支持重定向符号 ``>`` 和 ``<`` 。
+想必同学们也听说过一切皆文件的概念，本章中我们也将在文件系统的基础之上，将标准输入输出和管道也纳入文件的范畴，使得我们可以在程序中不加区分的使用不同的输入与输出形式。我们还将扩展 ``exec`` 系统调用，使之能传递运行参数，并进一步改进 shell 程序，使其支持重定向符号 ``>`` 和 ``<`` 。
 
-本章的篇幅与第四章接近。
+本章的篇幅较长，但是代码的工作量并不大。
 
 实践体验
 -----------------------------------------
@@ -19,7 +19,7 @@
 
    $ git clone https://github.com/LearningOS/rCore-Tutorial-Code-2022S.git
    $ cd rCore-Tutorial-Code-2022S
-   $ git checkout ch7
+   $ git checkout ch6
 
 在 qemu 模拟器上运行本章代码：
 
@@ -28,31 +28,31 @@
    $ cd os
    $ make run
 
-内核初始化完成之后就会进入shell程序，在这里我们运行一下本章的测例 ``filetest_simple`` ：
+内核初始化完成之后就会进入shell程序，在这里我们运行一下本章的测例 ``ch6b_filetest_simple`` ：
 
 .. code-block::
 
-    >> filetest_simple
+    >> ch6b_filetest_simple
     file_test passed!
     Shell: Process 2 exited with code 0
     >>
 
-它会将 ``Hello, world!`` 输出到另一个文件 ``filea`` ，并读取里面的内容确认输出正确。我们也可以通过命令行工具 ``cat`` 来查看 ``filea`` 中的内容：
+它会将 ``Hello, world!`` 输出到另一个文件 ``filea`` ，并读取里面的内容确认输出正确。我们也可以通过命令行工具 ``ch6b_cat`` 来查看 ``filea`` 中的内容：
 
 .. code-block::
 
-   >> cat filea
+   >> ch6b_cat filea
    Hello, world!
    Shell: Process 2 exited with code 0
    >>
 
-此外，在本章我们为shell程序支持了输入/输出重定向功能，可以将一个应用的输出保存到一个指定的文件。例如，下面的命令可以将 ``yield`` 应用的输出保存在文件 ``fileb`` 当中，并在应用执行完毕之后确认它的输出：
+此外，在本章我们为shell程序支持了输入/输出重定向功能，可以将一个应用的输出保存到一个指定的文件。例如，下面的命令可以将 ``ch6b_yield`` 应用的输出保存在文件 ``fileb`` 当中，并在应用执行完毕之后确认它的输出：
 
 .. code-block::
 
-   >> yield > fileb
+   >> ch6b_yield > fileb
    Shell: Process 2 exited with code 0
-   >> cat fileb
+   >> ch6b_cat fileb
    Hello, I am process 2.
    Back in process 2, iteration 0.
    Back in process 2, iteration 1.

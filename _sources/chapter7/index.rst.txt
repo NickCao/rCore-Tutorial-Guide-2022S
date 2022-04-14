@@ -5,6 +5,5 @@
    :maxdepth: 4
 
    0intro
-   1file-descriptor
-   2pipe
-   3exercise
+   1pipe
+   2exercise
