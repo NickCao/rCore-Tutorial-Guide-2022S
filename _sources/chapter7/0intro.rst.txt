@@ -4,7 +4,7 @@
 本章导读
 -----------------------------------------
 
-本章将基于文件描述符改造标准输入/标准输出的实现方式，然后实现父子进程之间的通信机制——管道。
+本章将基于文件描述符实现父子进程之间的通信机制——管道。
 
 实践体验
 -----------------------------------------
@@ -15,7 +15,7 @@
 
    $ git clone https://github.com/LearningOS/rCore-Tutorial-Code-2022S.git
    $ cd rCore-Tutorial-Code-2022S
-   $ git checkout ch6
+   $ git checkout ch7
 
 在 qemu 模拟器上运行本章代码：
 
@@ -24,13 +24,13 @@
    $ cd os
    $ make run
 
-进入shell程序后，可以运行管道机制的简单测例 ``pipetest``， ``pipetest`` 需要保证父进程通过管道传输给子进程的字符串不会发生变化。
+进入shell程序后，可以运行管道机制的简单测例 ``ch7b_pipetest``， ``ch7b_pipetest`` 需要保证父进程通过管道传输给子进程的字符串不会发生变化。
 
 测例输出大致如下：
 
 .. code-block::
 
-   >> pipetest
+   >> ch7b_pipetest
    Read OK, child process exited!
    pipetest passed!
    Shell: Process 2 exited with code 0

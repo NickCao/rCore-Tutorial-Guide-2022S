@@ -229,7 +229,7 @@
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">第六章：进程间通信</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">引言</a></li>
 <li class="toctree-l2"><a class="reference internal" href="1pipe.html">管道</a></li>
-<li class="toctree-l2"><a class="reference internal" href="2exercise.html">chapter6练习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2exercise.html">chapter7练习</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../chapter8/index.html">第八章：并发</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -287,14 +287,14 @@
 <h1>引言<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
 <div class="section" id="id2">
 <h2>本章导读<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<p>本章将基于文件描述符改造标准输入/标准输出的实现方式，然后实现父子进程之间的通信机制——管道。</p>
+<p>本章将基于文件描述符实现父子进程之间的通信机制——管道。</p>
 </div>
 <div class="section" id="id3">
 <h2>实践体验<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p>获取本章代码：</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git clone https://github.com/LearningOS/rCore-Tutorial-Code-2022S.git
 <span class="gp">$ </span><span class="nb">cd</span> rCore-Tutorial-Code-2022S
-<span class="gp">$ </span>git checkout ch6
+<span class="gp">$ </span>git checkout ch7
 </pre></div>
 </div>
 <p>在 qemu 模拟器上运行本章代码：</p>
@@ -302,9 +302,9 @@
 <span class="gp">$ </span>make run
 </pre></div>
 </div>
-<p>进入shell程序后，可以运行管道机制的简单测例 <code class="docutils literal notranslate"><span class="pre">pipetest</span></code>， <code class="docutils literal notranslate"><span class="pre">pipetest</span></code> 需要保证父进程通过管道传输给子进程的字符串不会发生变化。</p>
+<p>进入shell程序后，可以运行管道机制的简单测例 <code class="docutils literal notranslate"><span class="pre">ch7b_pipetest</span></code>， <code class="docutils literal notranslate"><span class="pre">ch7b_pipetest</span></code> 需要保证父进程通过管道传输给子进程的字符串不会发生变化。</p>
 <p>测例输出大致如下：</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt; pipetest
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt; ch7b_pipetest
 Read OK, child process exited!
 pipetest passed!
 Shell: Process 2 exited with code 0
