@@ -6,4 +6,5 @@
 
    0intro
    1pipe
-   2exercise
+   2cmdargs-and-redirection
+   3exercise
