@@ -46,20 +46,21 @@
     ── os
        └── src
            ├── ...
-           ├── fs(新增：文件系统子模块 fs)
-           │   ├── mod.rs(包含已经打开且可以被进程读写的文件的抽象 File Trait)
-           │   ├── pipe.rs(实现了 File Trait 的第一个分支——可用来进程间通信的管道)
-           │   └── stdio.rs(实现了 File Trait 的第二个分支——标准输入/输出)
+           ├── fs
+           │   ├── inode.rs
+           │   ├── mod.rs
+           │   ├── pipe.rs(实现了 File Trait 的第三个实现——可用来进程间通信的管道)
+           │   └── stdio.rs
            ├── mm
            │   ├── address.rs
            │   ├── frame_allocator.rs
            │   ├── heap_allocator.rs
            │   ├── memory_set.rs
            │   ├── mod.rs
-           │   └── page_table.rs(新增：应用地址空间的缓冲区抽象 UserBuffer 及其迭代器实现)
+           │   └── page_table.rs
            ├── syscall
-           │   ├── fs.rs(修改：调整 sys_read/write 的实现，新增 sys_close/pipe)
-           │   ├── mod.rs(修改：调整 syscall 分发)
+           │   ├── fs.rs
+           │   ├── mod.rs
            │   └── process.rs
            ├── task
                ├── context.rs
@@ -69,7 +70,7 @@
                ├── processor.rs
                ├── switch.rs
                ├── switch.S
-               └── task.rs(修改：在任务控制块中加入文件描述符表相关机制)
+               └── task.rs
 
    cloc os
    -------------------------------------------------------------------------------

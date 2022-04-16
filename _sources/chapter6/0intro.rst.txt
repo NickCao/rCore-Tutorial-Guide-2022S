@@ -86,7 +86,7 @@
            │   ├── heap_allocator.rs
            │   ├── memory_set.rs(修改：在创建地址空间的时候插入 MMIO 虚拟页面)
            │   ├── mod.rs
-           │   └── page_table.rs
+           │   └── page_table.rs(新增：应用地址空间的缓冲区抽象 UserBuffer 及其迭代器实现)
            ├── syscall
            │   ├── fs.rs(修改：新增 sys_open，修改sys_read、sys_write)
            │   ├── mod.rs
@@ -94,12 +94,12 @@
            ├── task
                ├── context.rs
                ├── manager.rs
-               ├── mod.rs(修改初始进程 INITPROC 的初始化)
+               ├── mod.rs(修改：初始进程 INITPROC 的初始化)
                ├── pid.rs
                ├── processor.rs
                ├── switch.rs
                ├── switch.S
-               └── task.rs
+               └── task.rs(修改：在任务控制块中加入文件描述符表的相关机制)
 
    cloc easy-fs os
    -------------------------------------------------------------------------------

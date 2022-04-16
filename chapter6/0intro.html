@@ -225,7 +225,7 @@
 <li class="toctree-l2"><a class="reference internal" href="4exercise.html">chapter6练习</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../chapter7/index.html">第六章：进程间通信</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../chapter7/index.html">第七章：进程间通信</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../chapter7/0intro.html">引言</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter7/1pipe.html">管道</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../chapter7/2cmdargs-and-redirection.html">命令行参数与标准 I/O 重定向</a></li>
@@ -357,7 +357,7 @@ Shell: Process 2 exited with code 0
 <span class="linenos">36</span>        │   ├── heap_allocator.rs
 <span class="linenos">37</span>        │   ├── memory_set.rs(修改：在创建地址空间的时候插入 MMIO 虚拟页面)
 <span class="linenos">38</span>        │   ├── mod.rs
-<span class="linenos">39</span>        │   └── page_table.rs
+<span class="linenos">39</span>        │   └── page_table.rs(新增：应用地址空间的缓冲区抽象 UserBuffer 及其迭代器实现)
 <span class="linenos">40</span>        ├── syscall
 <span class="linenos">41</span>        │   ├── fs.rs(修改：新增 sys_open，修改sys_read、sys_write)
 <span class="linenos">42</span>        │   ├── mod.rs
@@ -365,12 +365,12 @@ Shell: Process 2 exited with code 0
 <span class="linenos">44</span>        ├── task
 <span class="linenos">45</span>            ├── context.rs
 <span class="linenos">46</span>            ├── manager.rs
-<span class="linenos">47</span>            ├── mod.rs(修改初始进程 INITPROC 的初始化)
+<span class="linenos">47</span>            ├── mod.rs(修改：初始进程 INITPROC 的初始化)
 <span class="linenos">48</span>            ├── pid.rs
 <span class="linenos">49</span>            ├── processor.rs
 <span class="linenos">50</span>            ├── switch.rs
 <span class="linenos">51</span>            ├── switch.S
-<span class="linenos">52</span>            └── task.rs
+<span class="linenos">52</span>            └── task.rs(修改：在任务控制块中加入文件描述符表的相关机制)
 <span class="linenos">53</span>
 <span class="linenos">54</span>cloc easy-fs os
 <span class="linenos">55</span>-------------------------------------------------------------------------------

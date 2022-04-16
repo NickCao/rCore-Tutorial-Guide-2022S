@@ -2,7 +2,7 @@
 <html class="no-js" lang="zh_CN">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><link rel="index" title="索引" href="../genindex.html" /><link rel="search" title="搜索" href="../search.html" /><link rel="next" title="管道" href="1pipe.html" /><link rel="prev" title="第六章：进程间通信" href="index.html" />
+    <meta name="color-scheme" content="light dark"><link rel="index" title="索引" href="../genindex.html" /><link rel="search" title="搜索" href="../search.html" /><link rel="next" title="管道" href="1pipe.html" /><link rel="prev" title="第七章：进程间通信" href="index.html" />
 
     <meta name="generator" content="sphinx-4.1.2, furo 2021.08.31"/>
         <title>引言 - rCore-Tutorial-Guide-2022S 文档</title>
@@ -225,7 +225,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../chapter6/4exercise.html">chapter6练习</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">第六章：进程间通信</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">第七章：进程间通信</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">引言</a></li>
 <li class="toctree-l2"><a class="reference internal" href="1pipe.html">管道</a></li>
 <li class="toctree-l2"><a class="reference internal" href="2cmdargs-and-redirection.html">命令行参数与标准 I/O 重定向</a></li>
@@ -317,20 +317,21 @@ Shell: Process 2 exited with code 0
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> ── os
     └── src
         ├── ...
-        ├── fs(新增：文件系统子模块 fs)
-        │   ├── mod.rs(包含已经打开且可以被进程读写的文件的抽象 File Trait)
-        │   ├── pipe.rs(实现了 File Trait 的第一个分支——可用来进程间通信的管道)
-        │   └── stdio.rs(实现了 File Trait 的第二个分支——标准输入/输出)
+        ├── fs
+        │   ├── inode.rs
+        │   ├── mod.rs
+        │   ├── pipe.rs(实现了 File Trait 的第三个实现——可用来进程间通信的管道)
+        │   └── stdio.rs
         ├── mm
         │   ├── address.rs
         │   ├── frame_allocator.rs
         │   ├── heap_allocator.rs
         │   ├── memory_set.rs
         │   ├── mod.rs
-        │   └── page_table.rs(新增：应用地址空间的缓冲区抽象 UserBuffer 及其迭代器实现)
+        │   └── page_table.rs
         ├── syscall
-        │   ├── fs.rs(修改：调整 sys_read/write 的实现，新增 sys_close/pipe)
-        │   ├── mod.rs(修改：调整 syscall 分发)
+        │   ├── fs.rs
+        │   ├── mod.rs
         │   └── process.rs
         ├── task
             ├── context.rs
@@ -340,7 +341,7 @@ Shell: Process 2 exited with code 0
             ├── processor.rs
             ├── switch.rs
             ├── switch.S
-            └── task.rs(修改：在任务控制块中加入文件描述符表相关机制)
+            └── task.rs
 
 cloc os
 -------------------------------------------------------------------------------
@@ -378,7 +379,7 @@ SUM:                            38            236            169           2642
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">第六章：进程间通信</div>
+                <div class="title">第七章：进程间通信</div>
                 
               </div>
             </a>
