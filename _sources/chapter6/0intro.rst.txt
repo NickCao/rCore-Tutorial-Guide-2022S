@@ -6,10 +6,6 @@
 
 本章我们将实现一个简单的文件系统 -- easyfs，能够对 **持久存储设备** (Persistent Storage) I/O 资源进行管理；将设计两种文件：常规文件和目录文件，它们均以文件系统所维护的 **磁盘文件** 形式被组织并保存在持久存储设备上。
 
-想必同学们也听说过一切皆文件的概念，本章中我们也将在文件系统的基础之上，将标准输入输出和管道也纳入文件的范畴，使得我们可以在程序中不加区分的使用不同的输入与输出形式。我们还将扩展 ``exec`` 系统调用，使之能传递运行参数，并进一步改进 shell 程序，使其支持重定向符号 ``>`` 和 ``<`` 。
-
-本章的篇幅较长，但是代码的工作量并不大。
-
 实践体验
 -----------------------------------------
 
@@ -41,26 +37,8 @@
 
 .. code-block::
 
-   >> ch6b_cat filea
+   >> ch6b_cat
    Hello, world!
-   Shell: Process 2 exited with code 0
-   >>
-
-此外，在本章我们为shell程序支持了输入/输出重定向功能，可以将一个应用的输出保存到一个指定的文件。例如，下面的命令可以将 ``ch6b_yield`` 应用的输出保存在文件 ``fileb`` 当中，并在应用执行完毕之后确认它的输出：
-
-.. code-block::
-
-   >> ch6b_yield > fileb
-   Shell: Process 2 exited with code 0
-   >> ch6b_cat fileb
-   Hello, I am process 2.
-   Back in process 2, iteration 0.
-   Back in process 2, iteration 1.
-   Back in process 2, iteration 2.
-   Back in process 2, iteration 3.
-   Back in process 2, iteration 4.
-   yield pass.
-
    Shell: Process 2 exited with code 0
    >>
 
@@ -85,23 +63,22 @@
    │   └── src
    │       └── main.rs
    ├── os
-       ├── build.rs
+       ├── build.rs(修改：不再需要将用户态程序链接到内核中）
        ├── Cargo.toml(修改：新增 Qemu 的块设备驱动依赖 crate)
        ├── Makefile(修改：新增文件系统的构建流程)
        └── src
            ├── config.rs(修改：新增访问块设备所需的一些 MMIO 配置)
            ├── ...
-           ├── drivers(修改：新增 Qemu 平台的块设备驱动)
+           ├── drivers(新增：Qemu 平台的块设备驱动)
            │   ├── block
            │   │   ├── mod.rs(将不同平台上的块设备全局实例化为 BLOCK_DEVICE 提供给其他模块使用)
            │   │   └── virtio_blk.rs(Qemu 平台的 virtio-blk 块设备)
            │   └── mod.rs
-           ├── fs(修改：在文件系统中新增常规文件的支持)
+           ├── fs(新增：对文件系统及文件抽象)
            │   ├── inode.rs(新增：将 easy-fs 提供的 Inode 抽象封装为内核看到的 OSInode
            │   │            并实现 fs 子模块的 File Trait)
            │   ├── mod.rs
-           │   ├── pipe.rs
-           │   └── stdio.rs
+           │   └── stdio.rs(新增：将标准输入输出也抽象为文件)
            ├── loader.rs(移除：应用加载器 loader 子模块，本章开始从文件系统中加载应用)
            ├── mm
            │   ├── address.rs
@@ -111,9 +88,9 @@
            │   ├── mod.rs
            │   └── page_table.rs
            ├── syscall
-           │   ├── fs.rs(修改：新增 sys_open/sys_dup)
+           │   ├── fs.rs(修改：新增 sys_open，修改sys_read、sys_write)
            │   ├── mod.rs
-           │   └── process.rs(修改：sys_exec 改为从文件系统中加载 ELF，并支持命令行参数)
+           │   └── process.rs(修改：sys_exec 改为从文件系统中加载 ELF)
            ├── task
                ├── context.rs
                ├── manager.rs
