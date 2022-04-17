@@ -287,7 +287,8 @@
 <h1>引言<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
 <div class="section" id="id2">
 <h2>本章导读<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<p>本章将基于文件描述符实现父子进程之间的通信机制——管道。</p>
+<p>本章将基于文件描述符实现父子进程之间的通信机制——管道。
+我们还将扩展 <code class="docutils literal notranslate"><span class="pre">exec</span></code> 系统调用，使之能传递运行参数，并进一步改进 shell 程序，使其支持重定向符号 <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> 和 <code class="docutils literal notranslate"><span class="pre">&lt;</span></code> 。</p>
 </div>
 <div class="section" id="id3">
 <h2>实践体验<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
@@ -311,6 +312,22 @@ Shell: Process 2 exited with code 0
 &gt;&gt;
 </pre></div>
 </div>
+<p>此外，在本章我们为shell程序支持了输入/输出重定向功能，可以将一个应用的输出保存到一个指定的文件。例如，下面的命令可以将 <code class="docutils literal notranslate"><span class="pre">ch7b_yield</span></code> 应用的输出保存在文件 <code class="docutils literal notranslate"><span class="pre">fileb</span></code> 当中，并在应用执行完毕之后确认它的输出：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">ch7b_yield</span> <span class="o">&gt;</span> <span class="n">fileb</span>
+<span class="n">Shell</span><span class="p">:</span> <span class="n">Process</span> <span class="mi">2</span> <span class="n">exited</span> <span class="k">with</span> <span class="n">code</span> <span class="mi">0</span>
+<span class="o">&gt;&gt;</span> <span class="n">ch7b_cat</span> <span class="n">fileb</span>
+<span class="n">Hello</span><span class="p">,</span> <span class="n">I</span> <span class="n">am</span> <span class="n">process</span> <span class="mf">2.</span>
+<span class="n">Back</span> <span class="ow">in</span> <span class="n">process</span> <span class="mi">2</span><span class="p">,</span> <span class="n">iteration</span> <span class="mf">0.</span>
+<span class="n">Back</span> <span class="ow">in</span> <span class="n">process</span> <span class="mi">2</span><span class="p">,</span> <span class="n">iteration</span> <span class="mf">1.</span>
+<span class="n">Back</span> <span class="ow">in</span> <span class="n">process</span> <span class="mi">2</span><span class="p">,</span> <span class="n">iteration</span> <span class="mf">2.</span>
+<span class="n">Back</span> <span class="ow">in</span> <span class="n">process</span> <span class="mi">2</span><span class="p">,</span> <span class="n">iteration</span> <span class="mf">3.</span>
+<span class="n">Back</span> <span class="ow">in</span> <span class="n">process</span> <span class="mi">2</span><span class="p">,</span> <span class="n">iteration</span> <span class="mf">4.</span>
+<span class="k">yield</span> <span class="k">pass</span><span class="o">.</span>
+
+<span class="n">Shell</span><span class="p">:</span> <span class="n">Process</span> <span class="mi">2</span> <span class="n">exited</span> <span class="k">with</span> <span class="n">code</span> <span class="mi">0</span>
+<span class="o">&gt;&gt;</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="id4">
 <h2>本章代码树<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
@@ -320,7 +337,7 @@ Shell: Process 2 exited with code 0
         ├── fs
         │   ├── inode.rs
         │   ├── mod.rs
-        │   ├── pipe.rs(实现了 File Trait 的第三个实现——可用来进程间通信的管道)
+        │   ├── pipe.rs(新增：实现了 File Trait 的第三个实现——可用来进程间通信的管道)
         │   └── stdio.rs
         ├── mm
         │   ├── address.rs
@@ -330,9 +347,9 @@ Shell: Process 2 exited with code 0
         │   ├── mod.rs
         │   └── page_table.rs
         ├── syscall
-        │   ├── fs.rs
+        │   ├── fs.rs(修改：添加了sys_pipe和sys_dup)
         │   ├── mod.rs
-        │   └── process.rs
+        │   └── process.rs(修改：sys_exec添加了对参数的支持)
         ├── task
             ├── context.rs
             ├── manager.rs
@@ -341,7 +358,7 @@ Shell: Process 2 exited with code 0
             ├── processor.rs
             ├── switch.rs
             ├── switch.S
-            └── task.rs
+            └── task.rs(修改：在exec中将参数压入用户栈中)
 
 cloc easy-fs os
 -------------------------------------------------------------------------------
